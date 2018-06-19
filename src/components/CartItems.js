@@ -3,6 +3,13 @@ import CartItem from './CartItem'
 
 const CartItems = ({itemsPanoply}) => {
   let itemList = itemsPanoply.map(cartItem => <CartItem key={cartItem.id} cartItem={ cartItem }/>)
+
+  const prices = itemsPanoply.map(itemDataObj=> itemDataObj.product.priceInCents)
+
+  const totalPrice = prices.reduce((acc, cur) => acc + cur)
+
+  const priceConverter = price => price / 100
+
   return(
     <div className="container">
       <h1>Cart Items</h1>
@@ -15,6 +22,8 @@ const CartItems = ({itemsPanoply}) => {
           </div>
         </div>
         <div>{ itemList }</div>
+        <br/>
+        <div>Total ${ priceConverter(totalPrice) } </div>
       </div>
     </div>
   )
